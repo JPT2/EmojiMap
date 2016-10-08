@@ -9,7 +9,7 @@ GET Request
 		}, 
 		{
 		  "emojiName": "Emoji Name",
-		  "occurences": # of occurences,
+		  "occurrences": # of occurences,
 		}
   	    ]
 }

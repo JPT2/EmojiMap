@@ -1,5 +1,7 @@
 var activeEmojis = [];
 var dashID = "emoji-dashboard";
+var totalOccurrences;
+var sizeOfContainer;
 
 /*
 --------------------------------------------------------------------------------
@@ -17,25 +19,29 @@ Emoji Creation Functions
 
 // Create a div to contain elements related to a particular emoji
 // *** NO ERROR HANDLING CURRENTLY IMPLEMENTED
-function createEmojiDiv(emojiName) {
+function createEmojiDiv(emojiData) {
   var emojiDiv = document.createElement('div');
   emojiDiv.setAttribute('class','emoji-container');
 
   // Add the emoji image element as a child
-  emojiDiv.appendChild(createEmojiImage(emojiName));
+  emojiDiv.appendChild(createEmojiImage(emojidData));
 
   // Keep track of emojis being displayed
-  activeEmojis.push(emojiName);
+  activeEmojis.push(emojiData.emojiName);
 
   return emojiDiv;
 };
 
 // *** NO ERROR HANDLING CURRENTLY IMPLEMENTED
-function createEmojiImage(emojiName) {
+function createEmojiImage(emojiData) {
   // Assume file path is img/emojiName
   var img = document.createElement('img');
-  img.setAttribute('id', emojiName);
-  img.setAttribute('src', 'emoji_resources/' + emojiName + '.svg');
+  img.setAttribute('id', emojiData.emojiName);
+  img.setAttribute('src', 'emoji_resources/' + emojiData.emojiName + '.svg');
+
+  var size = sizeOfContainer * emojiData.occurrences / totalOccurrences;
+  img.style.height = size;
+  img.style.width = size;
 
   return img;
 };
@@ -47,11 +53,14 @@ function createDashboard() {
   var dashboard = document.getElementById(dashID);
   var data = JSON.parse(pullEmojiData());
 
+  totalOccurrences = data.totalCount;
+  sizeOfContainer = Math.min(dashboard.style.height, dashboard.style.width);
+  
   // Populate dashboard with emoji divs (could maybe place them in a table later)
   var numEmojis = data.emojis.length;
   for (var i = 0; i < numEmojis; ++i) {
     console.log(data.emojis[i].emojiName);
-    dashboard.appendChild(createEmojiDiv(data.emojis[i].emojiName));
+    dashboard.appendChild(createEmojiDiv(data.emojis[i]));
   }
 };
 
@@ -103,4 +112,4 @@ window.onload = function() { createDashboard(); };
 Functions and data for testing
 --------------------------------------------------------------------------------
 */
-var dummyData = '{' + '"emojis": [{ "emojiName": "happy", "occurences": 100 }, { "emojiName": "angry", "occurences": 100 }]' + '}';
+var dummyData = '{' + '"emojis": [{ "emojiName": "happy", "occurrences": 100 }, { "emojiName": "angry", "occurrences": 100 }]' + '}';
