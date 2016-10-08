@@ -1,4 +1,5 @@
-var activeEmojis[];
+var activeEmojis = [];
+var dashID = "emoji-dashboard";
 
 /*
 --------------------------------------------------------------------------------
@@ -18,7 +19,7 @@ Emoji Creation Functions
 // *** NO ERROR HANDLING CURRENTLY IMPLEMENTED
 function createEmojiDiv(emojiName) {
   var emojiDiv = document.createElement('div');
-  emojiDiv.setAttribute('id', emojiName + '-container');
+  emojiDiv.setAttribute('class','emoji-container');
 
   // Add the emoji image element as a child
   emojiDiv.appendChild(createEmojiImage(emojiName));
@@ -43,13 +44,14 @@ function createEmojiImage(emojiName) {
 function createDashboard() {
   // Could maybe make a call to refresh?
   // get data from database
-  var data = pullEmojiData();
+  var dashboard = document.getElementById(dashID);
+  var data = JSON.parse(pullEmojiData());
 
   // Populate dashboard with emoji divs (could maybe place them in a table later)
   var numEmojis = data.emojis.length;
   for (var i = 0; i < numEmojis; ++i) {
     console.log(data.emojis[i].emojiName);
-    data.appendChild(createEmojiDiv(data.emojis[i].emojiName));
+    dashboard.appendChild(createEmojiDiv(data.emojis[i].emojiName));
   }
 };
 
@@ -86,6 +88,7 @@ function pullEmojiData() {
   // Access database and pull information
 
   // Return data
+  return dummyData;
 };
 
 // *** NO ERROR HANDLING CURRENTLY IMPLEMENTED
@@ -93,11 +96,11 @@ function playSound(filename) {
   document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" /><source src="' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="' + filename +'.mp3" /></audio>';
 };
 
+window.onload = function() { createDashboard(); };
+
 /*
 --------------------------------------------------------------------------------
 Functions and data for testing
 --------------------------------------------------------------------------------
 */
-var dummyData = '{' _
-              +    '"emojis": [{ "emojiName": happy, "occurences": 100 }, { "emojiName": sad, "occurences": 100 }]' _
-              + '}';
+var dummyData = '{' + '"emojis": [{ "emojiName": "happy", "occurences": 100 }, { "emojiName": "angry", "occurences": 100 }]' + '}';
