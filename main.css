@@ -33,5 +33,26 @@
       left: 0;
       width: 100vw;
       background-color: #46B8CC;
-      height: calc(100vh - 8vw);
+      height: calc(97vh - 8vw);
+}
+
+#bottom-banner {
+      z-index: -1;
+      position: absolute;
+      top: 97vh;
+      left: 0;
+      width: 100vw;
+      background-color: #46B8CC;
+      height: 3vh;
+      text-align: center;
+      color: white;
+      font-size: 2vh;
+}
+
+#bottom-banner img {
+  height: 2vh;
+  width: 2vh;
+  margin: 0 auto;
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
 }
