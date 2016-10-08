@@ -24,7 +24,7 @@ function createEmojiDiv(emojiData) {
   emojiDiv.setAttribute('class','emoji-container');
 
   // Add the emoji image element as a child
-  emojiDiv.appendChild(createEmojiImage(emojidData));
+  emojiDiv.appendChild(createEmojiImage(emojiData));
 
   // Keep track of emojis being displayed
   activeEmojis.push(emojiData.emojiName);
@@ -55,7 +55,7 @@ function createDashboard() {
 
   totalOccurrences = data.totalCount;
   sizeOfContainer = Math.min(dashboard.style.height, dashboard.style.width);
-  
+
   // Populate dashboard with emoji divs (could maybe place them in a table later)
   var numEmojis = data.emojis.length;
   for (var i = 0; i < numEmojis; ++i) {
@@ -112,4 +112,4 @@ window.onload = function() { createDashboard(); };
 Functions and data for testing
 --------------------------------------------------------------------------------
 */
-var dummyData = '{' + '"emojis": [{ "emojiName": "happy", "occurrences": 100 }, { "emojiName": "angry", "occurrences": 100 }]' + '}';
+var dummyData = '{ "totalOccurrences": 200, ' + '"emojis": [{ "emojiName": "happy", "occurrences": 100 }, { "emojiName": "angry", "occurrences": 100 }]' + '}';
