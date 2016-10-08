@@ -1,4 +1,4 @@
-#banner {
+.banner {
        position: absolute;
        top: 0;
        left: 0;
@@ -6,13 +6,13 @@
        width: 100vw;
 }
 
-#banner-content {
+.banner-content {
        width: 80vw;
        margin: 0 auto;
        padding: 1vw;
 }
 
-#banner-content img {
+.banner-content img {
        height: 5vw;
        width: 5vw;
        margin: 0 auto;
