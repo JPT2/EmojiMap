@@ -1,3 +1,7 @@
+body {
+      background-color: #46B8CC;
+}
+
 .banner {
        position: absolute;
        top: 0;
@@ -29,11 +33,11 @@
 #emoji-dashboard {
       z-index: -1;
       position: absolute;
-      top: 8vw;
+      top: 9.5vw;
       left: 0;
       width: 100vw;
       background-color: #46B8CC;
-      height: calc(97vh - 8vw);
+      height: calc(95.5vh - 8vw);
 }
 
 #bottom-banner {
@@ -55,4 +59,9 @@
   margin: 0 auto;
   padding-left: 0.5vw;
   padding-right: 0.5vw;
+}
+
+.emoji-container img {
+  height: 3vw;
+  width: 3vw;
 }
