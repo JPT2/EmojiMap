@@ -1,5 +1,5 @@
 var activeEmojis[];
-var emojiDashID = 'emoji-dashboard';
+
 /*
 --------------------------------------------------------------------------------
 Emoji Map.js
@@ -25,6 +25,8 @@ function createEmojiDiv(emojiName) {
 
   // Keep track of emojis being displayed
   activeEmojis.push(emojiName);
+
+  return emojiDiv;
 };
 
 // *** NO ERROR HANDLING CURRENTLY IMPLEMENTED
@@ -32,14 +34,23 @@ function createEmojiImage(emojiName) {
   // Assume file path is img/emojiName
   var img = document.createElement('img');
   img.setAttribute('id', emojiName);
-  img.setAttribute('src', emojiName + '.svg');
+  img.setAttribute('src', 'emoji_resources/' + emojiName + '.svg');
+
+  return img;
 };
 
 // Make the emoji dashboard with a banner at top (and bottom?)
 function createDashboard() {
-  var emoji-dashboard = document.getElementById(emojiDashID);
+  // Could maybe make a call to refresh?
+  // get data from database
+  var data = pullEmojiData();
 
-
+  // Populate dashboard with emoji divs (could maybe place them in a table later)
+  var numEmojis = data.emojis.length;
+  for (var i = 0; i < numEmojis; ++i) {
+    console.log(data.emojis[i].emojiName);
+    data.appendChild(createEmojiDiv(data.emojis[i].emojiName));
+  }
 };
 
 /*
@@ -87,4 +98,6 @@ function playSound(filename) {
 Functions and data for testing
 --------------------------------------------------------------------------------
 */
-var dummyData = '';
+var dummyData = '{' _
+              +    '"emojis": [{ "emojiName": happy, "occurences": 100 }, { "emojiName": sad, "occurences": 100 }]' _
+              + '}';
