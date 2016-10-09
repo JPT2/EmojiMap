@@ -107,7 +107,7 @@ function reorder(data) {
 function placeEmoji(emojiName, index, largest) {
   var dashboard = document.getElementById(dashID);
   var maxSideLength = Math.min(dashboard.clientHeight / 4, dashboard.clientWidth / 7);
-  var topOfDashboard = document.getElementById(dashID).getBoundingClientRect().top - 25;
+  var topOfDashboard = document.getElementById(dashID).getBoundingClientRect().top - 75;
   var leftSideOffset = Math.max(0, (dashboard.clientWidth - dashboard.clientHeight) / 7);
 
   //console.log('LOOKAME: ratio =' + document.getElementById(emojiName).style.width.substring(0,  document.getElementById(activeEmojis[0]).style.width.length - 2) / largest);
