@@ -28,7 +28,7 @@ body {
 }
 
 
-.banner-content img[src = "pin.svg"] {
+.banner-content img[src = "ok.svg"] {
         position: absolute;
         top: 1vw;
         left: 1vw;

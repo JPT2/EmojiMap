@@ -48,7 +48,7 @@ function createEmojiImage(emojiData) {
   var dashboard = document.getElementById(dashID);
   var maxSideLength = Math.min(dashboard.clientHeight / 4, dashboard.clientWidth / 7);
 
-  var size = (maxSideLength * 2 / 3 * emojiData.occurrences / totalOccurrences) + (maxSideLength * 1 / 3);
+  var size = (maxSideLength * emojiData.occurrences / totalOccurrences);
   //console.log("size: " + size);
   img.style.height = size + "px";
   img.style.width = size + "px";
@@ -99,19 +99,21 @@ function reorder(data) {
   activeEmojis.reverse();
 
   var length = activeEmojis.length;
+  var largest = parseInt(document.getElementById(activeEmojis[0]).style.width.substring(0,  document.getElementById(activeEmojis[0]).style.width.length - 2));
+  console.log("largest: " + largest);
 
   //console.log('ANTONIO ARRAY: ' + activeEmojis);
   //console.log(data);
   //console.log('ActiveEmojis: ' + activeEmojis);
   for (var i = 0; i < length; ++i) {
-    placeEmoji(activeEmojis[i], i);
+    placeEmoji(activeEmojis[i], i, largest);
   }
 
   // In future could add function to allow emojis to float
 };
 
 // Places an emoji on the display area
-function placeEmoji(emojiName, index) {
+function placeEmoji(emojiName, index, largest) {
   var dashboard = document.getElementById(dashID);
   var maxSideLength = Math.min(dashboard.clientHeight / 4, dashboard.clientWidth / 7);
   var topOfDashboard = document.getElementById(dashID).getBoundingClientRect().top - 25;
@@ -119,62 +121,70 @@ function placeEmoji(emojiName, index) {
 
   //console.log('trying to place index:' + index);
   //console.log('Index: ' + index);
+  console.log('LOOKAME: ratio =' + document.getElementById(emojiName).style.width.substring(0,  document.getElementById(activeEmojis[0]).style.width.length - 2) / largest);
+
+  var width = (document.getElementById(emojiName).style.width.substring(0,  document.getElementById(emojiName).style.width.length - 2) / largest) * maxSideLength;
+  var height = (document.getElementById(emojiName).style.height.substring(0,  document.getElementById(emojiName).style.height.length - 2) / largest) * maxSideLength;
+
+  document.getElementById(emojiName).style.width = width + 'px';
+  document.getElementById(emojiName).style.height = height + 'px';
+
   switch(index) {
     case 0:
             document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 1 + 'px';
             document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 3 + 'px';
       break;
     case 1:
-            document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 1 + 'px';
+            document.getElementById(emojiName).parentNode.style.top = (maxSideLength - height)/2 + topOfDashboard + maxSideLength * 1 + 'px';
             document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 4 + 'px';
       break;
     case 2:
-            document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 1 + 'px';
-            document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 2 + 'px';
+            document.getElementById(emojiName).parentNode.style.top = (maxSideLength - height)/2 + topOfDashboard + maxSideLength * 1 + 'px';
+            document.getElementById(emojiName).parentNode.style.left = maxSideLength - width + leftSideOffset + maxSideLength * 2 + 'px';
       break;
     case 3:
-            document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 0 + 'px';
-            document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 3 + 'px';
+            document.getElementById(emojiName).parentNode.style.top = maxSideLength - height + topOfDashboard + maxSideLength * 0 + 'px';
+            document.getElementById(emojiName).parentNode.style.left = (maxSideLength - width)/2 + leftSideOffset + maxSideLength * 3 + 'px';
       break;
     case 4:
             document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 2 + 'px';
-            document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 3 + 'px';
+            document.getElementById(emojiName).parentNode.style.left = (maxSideLength - width)/2 + leftSideOffset + maxSideLength * 3 + 'px';
       break;
     case 5:
-            document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 0 + 'px';
-            document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 2 + 'px';
+            document.getElementById(emojiName).parentNode.style.top = maxSideLength - height + topOfDashboard + maxSideLength * 0 + 'px';
+            document.getElementById(emojiName).parentNode.style.left = maxSideLength - width + leftSideOffset + maxSideLength * 2 + 'px';
       break;
     case 6:
-            document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 0 + 'px';
+            document.getElementById(emojiName).parentNode.style.top = maxSideLength - height + topOfDashboard + maxSideLength * 0 + 'px';
             document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 4 + 'px';
       break;
     case 7:
             document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 2 + 'px';
-            document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 2 + 'px';
+            document.getElementById(emojiName).parentNode.style.left = maxSideLength - width + leftSideOffset + maxSideLength * 2 + 'px';
       break;
     case 8:
-            document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 1 + 'px';
+            document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 2 + 'px';
             document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 4 + 'px';
       break;
     case 9:
-            document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 0 + 'px';
-            document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 1 + 'px';
+            document.getElementById(emojiName).parentNode.style.top = maxSideLength - height + topOfDashboard + maxSideLength * 0 + 'px';
+            document.getElementById(emojiName).parentNode.style.left = maxSideLength - width + leftSideOffset + maxSideLength * 1 + 'px';
       break;
     case 10:
-            document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 0 + 'px';
+            document.getElementById(emojiName).parentNode.style.top = maxSideLength - height + topOfDashboard + maxSideLength * 0 + 'px';
             document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 5 + 'px';
       break;
     case 11:
-            document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 1 + 'px';
-            document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 1 + 'px';
+            document.getElementById(emojiName).parentNode.style.top = (maxSideLength - height)/2 + topOfDashboard + maxSideLength * 1 + 'px';
+            document.getElementById(emojiName).parentNode.style.left = maxSideLength - width + leftSideOffset + maxSideLength * 1 + 'px';
       break;
     case 12:
-            document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 1 + 'px';
+            document.getElementById(emojiName).parentNode.style.top = (maxSideLength - height)/2 + topOfDashboard + maxSideLength * 1 + 'px';
             document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 5 + 'px';
       break;
     case 13:
             document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 2 + 'px';
-            document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 1 + 'px';
+            document.getElementById(emojiName).parentNode.style.left = maxSideLength - width + leftSideOffset + maxSideLength * 1 + 'px';
       break;
     case 14:
             document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 2 + 'px';
@@ -182,11 +192,11 @@ function placeEmoji(emojiName, index) {
       break;
     case 15:
             document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 3 + 'px';
-            document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 3 + 'px';
+            document.getElementById(emojiName).parentNode.style.left = (maxSideLength - width)/2 + leftSideOffset + maxSideLength * 3 + 'px';
       break;
     case 16:
             document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 3 + 'px';
-            document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 2 + 'px';
+            document.getElementById(emojiName).parentNode.style.left = maxSideLength - width + leftSideOffset + maxSideLength * 2 + 'px';
       break;
     case 17:
             document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 3 + 'px';
@@ -194,7 +204,7 @@ function placeEmoji(emojiName, index) {
       break;
     case 18:
             document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 3 + 'px';
-            document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 1 + 'px';
+            document.getElementById(emojiName).parentNode.style.left = maxSideLength - width + leftSideOffset + maxSideLength * 1 + 'px';
       break;
     case 19:
             document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 3 + 'px';
@@ -202,7 +212,7 @@ function placeEmoji(emojiName, index) {
       break;
     case 20:
             document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 3 + 'px';
-            document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 0 + 'px';
+            document.getElementById(emojiName).parentNode.style.left = maxSideLength - width + leftSideOffset + maxSideLength * 0 + 'px';
       break;
     case 21:
             document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 3 + 'px';
@@ -210,26 +220,26 @@ function placeEmoji(emojiName, index) {
       break;
     case 22:
             document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 2 + 'px';
-            document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 0 + 'px';
+            document.getElementById(emojiName).parentNode.style.left = maxSideLength - width + leftSideOffset + maxSideLength * 0 + 'px';
       break;
     case 23:
             document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 2 + 'px';
             document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 6 + 'px';
       break;
     case 24:
-            document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 1 + 'px';
-            document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 0 + 'px';
+            document.getElementById(emojiName).parentNode.style.top = (maxSideLength - height)/2 + topOfDashboard + maxSideLength * 1 + 'px';
+            document.getElementById(emojiName).parentNode.style.left = maxSideLength - width + leftSideOffset + maxSideLength * 0 + 'px';
       break;
     case 25:
-            document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 1 + 'px';
+            document.getElementById(emojiName).parentNode.style.top = (maxSideLength - height)/2 + topOfDashboard + maxSideLength * 1 + 'px';
             document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 6 + 'px';
       break;
     case 26:
-            document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 0 + 'px';
-            document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 0 + 'px';
+            document.getElementById(emojiName).parentNode.style.top = maxSideLength - height + topOfDashboard + maxSideLength * 0 + 'px';
+            document.getElementById(emojiName).parentNode.style.left = maxSideLength - width + leftSideOffset + maxSideLength * 0 + 'px';
       break;
     case 27:
-            document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 0 + 'px';
+            document.getElementById(emojiName).parentNode.style.top = maxSideLength - height + topOfDashboard + maxSideLength * 0 + 'px';
             document.getElementById(emojiName).parentNode.style.left = leftSideOffset + maxSideLength * 6 + 'px';
       break;
 
@@ -257,7 +267,7 @@ function resize(data) {
       //ANTONIO IS DOING CHANGES AND STUFF HERE
       var dashboard = document.getElementById(dashID);
       var maxSideLength = Math.min(dashboard.clientHeight / 4, dashboard.clientWidth / 7);
-      var size = (maxSideLength * 2 / 3 * data.emojis[i].occurrences / totalOccurrences) + (maxSideLength * 1 / 3); //Might need to redefine the globals?
+      var size = (maxSideLength * data.emojis[i].occurrences / totalOccurrences); //Might need to redefine the globals?
 
       // Check if element has changed size between iterations
       // If they havent changed size then they don't need to be adjusted
@@ -348,7 +358,7 @@ Functions and data for testing
 --------------------------------------------------------------------------------
 */
 var dummyCounter = 0;
-var dummyData = '{ "totalOccurrences": 1360, ' + '"emojis": [{ "emojiName": "happy", "occurrences": 390 }, { "emojiName": "angry", "occurrences": 100 }, { "emojiName": "ahhh", "occurrences": 70 }, { "emojiName": "crying", "occurrences": 100 }, { "emojiName": "ded", "occurrences": 100 }, { "emojiName": "ehh", "occurrences": 100 }, { "emojiName": "embarassed", "occurrences": 100 }, { "emojiName": "glasses", "occurrences": 100 }, { "emojiName": "halo", "occurrences": 100 }, { "emojiName": "kiss", "occurrences": 100 }, { "emojiName": "happyblush", "occurrences": 100 }]' + '}';
+var dummyData = '{ "totalOccurrences": 1160, ' + '"emojis": [{ "emojiName": "happy", "occurrences": 190 }, { "emojiName": "angry", "occurrences": 100 }, { "emojiName": "ahhh", "occurrences": 70 }, { "emojiName": "crying", "occurrences": 100 }, { "emojiName": "ded", "occurrences": 100 }, { "emojiName": "ehh", "occurrences": 100 }, { "emojiName": "embarassed", "occurrences": 100 }, { "emojiName": "glasses", "occurrences": 100 }, { "emojiName": "halo", "occurrences": 100 }, { "emojiName": "kiss", "occurrences": 100 }, { "emojiName": "happyblush", "occurrences": 100 }]' + '}';
 var dummyData2 = '{ "totalOccurrences": 395, ' + '"emojis": [{ "emojiName": "happy", "occurrences": 195 }, { "emojiName": "angry", "occurrences": 100 }]' + '}';
 var dummyData3 = '{ "totalOccurrences": 200, ' + '"emojis": [{ "emojiName": "happy", "occurrences": 200 }]' + '}';
 var dummyDataSet = [dummyData, dummyData2, dummyData3];
