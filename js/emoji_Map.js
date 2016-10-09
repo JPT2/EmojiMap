@@ -291,7 +291,8 @@ function resize(data) {
 
 function notify(emojiData, newSize, oldSize) {
   //Make some noise and play an animation
-  playSound(emojiData.emojiName);
+  // console.log(emojiData.emojiName);
+  // playSound(emojiData.emojiName);
 };
 
 // Function to refresh data pulled from database

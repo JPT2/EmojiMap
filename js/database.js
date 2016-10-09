@@ -63,6 +63,17 @@ function packageData(updated) {
 
 function issueRefresh(jsonPackage) {
   refresh(jsonPackage);
+  updateHeader();
+};
+
+function updateHeader() {
+  var i = Math.floor(Math.random() * 28);
+  var occurrences = emojiTotals[i];
+  var emojiName = parseEmojiNumber(i + 1);
+
+  document.getElementById('occurrences').innerHTML = occurrences;
+  document.getElementById('emojiName').setAttribute('src', 'emoji_resources/' + emojiName + '.svg');
+  document.getElementById('emojiName').setAttribute('alt', emojiName);
 };
 
 function forceRefresh() {
