@@ -83,7 +83,7 @@ Dashboard functions
 // *** NO ERROR HANDLING CURRENTLY IMPLEMENTED
 function reorder(data) {
   // Reorder emojis on screen and play a notification noise when emoji resized
-  
+
   // In future could add function to allow emojis to float
 };
 
@@ -181,7 +181,7 @@ function playSound(filename) {
 
 window.onload = function() { refresh(); };
 
-window.onresize = function(event) { refresh(); };
+window.onresize = function(event) { //refresh(); };
 
 /*
 --------------------------------------------------------------------------------
