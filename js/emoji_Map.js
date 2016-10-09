@@ -1,4 +1,6 @@
 var activeEmojis = [];
+
+
 var dashID = "emoji-dashboard";
 var totalOccurrences;
 var sizeOfContainer;
@@ -83,8 +85,27 @@ Dashboard functions
 // *** NO ERROR HANDLING CURRENTLY IMPLEMENTED
 function reorder(data) {
   // Reorder emojis on screen and play a notification noise when emoji resized
+  activeEmojis.sort(function(a,b) {
+    console.log("sorting")
+    var a1 = parseInt(document.getElementById(a).style.width.substring(0,  document.getElementById(a).style.width.length - 2));
+    var b1 = parseInt(document.getElementById(b).style.width.substring(0, document.getElementById(b).style.width.length - 2));
+    console.log('a1: ' + a1 + ', b1: ' + b1);
+    console.log(a1 > b1 ? -1 : a1 < b1 ? 1 : 0)
+    return a1 > b1 ? 1 : a1 < b1 ? -1 : 0;
+  });
+  activeEmojis.reverse();
+
+  var length = activeEmojis.length;
+  for (var i = 0; i < length; ++i) {
+    placeEmoji(activeEmojis[i], i);
+  }
 
   // In future could add function to allow emojis to float
+};
+
+// Places an emoji on the display area
+function placeEmoji(emojiName, index) {
+
 };
 
 function resize(data) {
@@ -181,7 +202,7 @@ function playSound(filename) {
 
 window.onload = function() { refresh(); };
 
-window.onresize = function(event) { //refresh(); };
+window.onresize = function(event) {}; //refresh(); };
 
 /*
 --------------------------------------------------------------------------------
