@@ -110,7 +110,7 @@ function placeEmoji(emojiName, index, largest) {
   var topOfDashboard = document.getElementById(dashID).getBoundingClientRect().top - 25;
   var leftSideOffset = Math.max(0, (dashboard.clientWidth - dashboard.clientHeight) / 7);
 
-  console.log('LOOKAME: ratio =' + document.getElementById(emojiName).style.width.substring(0,  document.getElementById(activeEmojis[0]).style.width.length - 2) / largest);
+  //console.log('LOOKAME: ratio =' + document.getElementById(emojiName).style.width.substring(0,  document.getElementById(activeEmojis[0]).style.width.length - 2) / largest);
 
   var width = (document.getElementById(emojiName).style.width.substring(0,  document.getElementById(emojiName).style.width.length - 2) / largest) * maxSideLength;
   var height = (document.getElementById(emojiName).style.height.substring(0,  document.getElementById(emojiName).style.height.length - 2) / largest) * maxSideLength;
@@ -245,13 +245,14 @@ function resize(data) {
   totalOccurrences = data.totalOccurrences;
 
   // Loop through all elements passed from database
-  var oldEmojis = activeEmojis;
-  activeEmojis = [];
+  //var oldEmojis = activeEmojis;
+  //activeEmojis = [];
   for (var i = 0; i < numEmojis; ++i) {
+    console.log(data.emojis[i].emojiName);
     var element = document.getElementById(data.emojis[i].emojiName);
     if ( element !== null) {
       //ANTONIO IS DOING CHANGES AND STUFF HERE
-      var dashboard = document.getElementById(dashID);
+      console.log("element found");
       var maxSideLength = Math.min(dashboard.clientHeight / 4, dashboard.clientWidth / 7);
       var size = (maxSideLength * data.emojis[i].occurrences / totalOccurrences); //Might need to redefine the globals?
 
@@ -263,9 +264,10 @@ function resize(data) {
         element.style.width = size + 'px';
         element.style.height = size + 'px';
 
-        activeEmojis.push(element.getAttribute('id'));
+
       }
-      oldEmojis.splice(oldEmojis.indexOf(data.emojis[i].emojiName), 1);
+      //activeEmojis.push(element.getAttribute('id'));
+      //oldEmojis.splice(oldEmojis.indexOf(data.emojis[i].emojiName), 1);
     } else {
       // Add a new element to the document
       emojiDiv = createEmojiDiv(data.emojis[i]);
@@ -274,25 +276,36 @@ function resize(data) {
     }
   }
 
+  numEmojis = activeEmojis.length;
+  for (var i = 0; i < numEmojis; ++i) {
+    var element = document.getElementById(activeEmojis[i]);
+    var maxSideLength = Math.min(dashboard.clientHeight / 4, dashboard.clientWidth / 7);
+    var size = (maxSideLength * emojiTotals[parseEmojiID(activeEmojis[i]) - 1] / totalOccurrences);
+    if (Math.round(size) !== element.width) {
+      element.style.width = size + 'px';
+      element.style.height = size + 'px';
+    }
+  }
+
   console.log('At end of resize: active emojis below');
   console.log(activeEmojis);
 
   // clear old elements
-  var oldLength = oldEmojis.length;
-  console.log('Deleting: ' + oldLength);
-  for (var i = 0; i < oldLength; ++i) {
-    var element = document.getElementById(oldEmojis[i]);
-    console.log('clearing: ' + oldEmojis[i]);
-
-    // Need to remove image and div
-    element.parentNode.parentNode.removeChild(element.parentNode);
-  }
+  // var oldLength = oldEmojis.length;
+  // console.log('Deleting: ' + oldLength);
+  // for (var i = 0; i < oldLength; ++i) {
+  //   var element = document.getElementById(oldEmojis[i]);
+  //   console.log('clearing: ' + oldEmojis[i]);
+  //
+  //   // Need to remove image and div
+  //   element.parentNode.parentNode.removeChild(element.parentNode);
+  // }
 };
 
 function notify(emojiData, newSize, oldSize) {
   //Make some noise and play an animation
   // console.log(emojiData.emojiName);
-  // playSound(emojiData.emojiName);
+  playSound(emojiData.emojiName);
 };
 
 // Function to refresh data pulled from database

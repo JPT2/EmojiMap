@@ -24,6 +24,7 @@ function proccessEmojiData(data) {
       if (updatedEmojis.indexOf(emojiNum) === -1) {
         updatedEmojis.push(emojiNum);
       }
+      mostRecent = emojiDate;
     }
   }
 
@@ -119,5 +120,42 @@ function parseEmojiNumber(num) {
             case 26: return 'unhappy';
             case 27: return 'vhappy';
             case 28: return 'wow';
+        }
+};
+
+function parseEmojiID(emojiName) {
+  switch (emojiName)
+        {
+            case 'ahhh': return 1;
+            case 'angry': return 2;
+            case 'crying': return 3;
+            case 'ded': return 4;
+            case 'ehh': return 5;
+            case 'embarassed': return 6;
+            case 'glasses': return 7;
+
+            case 'halo': return 8;
+            case 'happy': return 9;
+            case 'happyblush': return 10;
+            case 'kiss': return 11;
+            case 'laughingcrying': return 12;
+            case 'love': return 13;
+            case 'lowkey': return 14;
+
+            case 'nocomment': return 15;
+            case 'ohyou': return 16;
+            case 'saddissapointed': return 17;
+            case 'sadfrustrated': return 18;
+            case 'yikes': return 19;
+            case 'sick': return 20;
+            case 'sideeye': return 21;
+
+            case 'sleep': return 22;
+            case 'steaming': return 23;
+            case 'suggestive': return 24;
+            case 'tongue': return 25;
+            case 'unhappy': return 26;
+            case 'vhappy': return 27;
+            case 'wow': return 28;
         }
 };
