@@ -1,7 +1,7 @@
 GET Request
 
 {
-  "totalCount": # of total occurences
+  "totalOccurrences": # of total occurences
   "emojis": [
 		{
 		  "emojiName": "Emoji Name",
