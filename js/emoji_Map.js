@@ -22,7 +22,7 @@ Emoji Creation Functions
 // Create a div to contain elements related to a particular emoji
 // *** NO ERROR HANDLING CURRENTLY IMPLEMENTED
 function createEmojiDiv(emojiData) {
-  console.log(emojiData);
+  //console.log(emojiData);
   var emojiDiv = document.createElement('div');
   emojiDiv.setAttribute('class','emoji-container');
   emojiDiv.style.position = 'absolute';
@@ -39,7 +39,7 @@ function createEmojiDiv(emojiData) {
 // *** NO ERROR HANDLING CURRENTLY IMPLEMENTED
 function createEmojiImage(emojiData) {
   // Assume file path is img/emojiName
-  console.log(emojiData);
+  //console.log(emojiData);
   var img = document.createElement('img');
   img.setAttribute('id', emojiData.emojiName);
   img.setAttribute('src', 'emoji_resources/' + emojiData.emojiName + '.svg');
@@ -49,8 +49,8 @@ function createEmojiImage(emojiData) {
   var maxSideLength = Math.min(dashboard.clientHeight / 4, dashboard.clientWidth / 7);
 
   var size = maxSideLength * emojiData.occurrences / totalOccurrences;
-  console.log("maxSideLength:" + maxSideLength + ", occurenecs: " + emojiData.occurrences + ", total: " + totalOccurrences);
-  console.log("size: " + size);
+  //console.log("maxSideLength:" + maxSideLength + ", occurenecs: " + emojiData.occurrences + ", total: " + totalOccurrences);
+  //console.log("size: " + size);
   img.style.height = size + "px";
   img.style.width = size + "px";
 
@@ -64,19 +64,19 @@ function createDashboard() {
   var dashboard = document.getElementById(dashID);
   var data = JSON.parse(pullEmojiData());
 
-  console.log("total count: " + data.totalOccurrences);
+  //console.log("total count: " + data.totalOccurrences);
   totalOccurrences = parseInt(data.totalOccurrences);
   sizeOfContainer = Math.min(dashboard.clientHeight, dashboard.clientWidth);
 
   // Populate dashboard with emoji divs (could maybe place them in a table later)
   var numEmojis = data.emojis.length;
   for (var i = 0; i < numEmojis; ++i) {
-    //console.log(data.emojis[i].emojiName);
+    ////console.log(data.emojis[i].emojiName);
     dashboard.appendChild(createEmojiDiv(data.emojis[i]));
   }
 
   setTimeout(refresh, 5000);
-  console.log(activeEmojis);
+  //console.log(activeEmojis);
 };
 
 /*
@@ -90,19 +90,20 @@ Dashboard functions
 function reorder(data) {
   // Reorder emojis on screen and play a notification noise when emoji resized
   activeEmojis.sort(function(a,b) {
-    console.log("sorting")
+    //console.log("sorting")
     var a1 = parseInt(document.getElementById(a).style.width.substring(0,  document.getElementById(a).style.width.length - 2));
     var b1 = parseInt(document.getElementById(b).style.width.substring(0, document.getElementById(b).style.width.length - 2));
-    console.log('a1: ' + a1 + ', b1: ' + b1);
-    console.log(a1 > b1 ? -1 : a1 < b1 ? 1 : 0)
+    //console.log('a1: ' + a1 + ', b1: ' + b1);
+    //console.log(a1 > b1 ? -1 : a1 < b1 ? 1 : 0)
     return a1 > b1 ? 1 : a1 < b1 ? -1 : 0;
   });
   activeEmojis.reverse();
 
   var length = activeEmojis.length;
 
-  console.log('ANTONIO ARRAY: ' + activeEmojis);
-
+  //console.log('ANTONIO ARRAY: ' + activeEmojis);
+  //console.log(data);
+  //console.log('ActiveEmojis: ' + activeEmojis);
   for (var i = 0; i < length; ++i) {
     placeEmoji(activeEmojis[i], i);
   }
@@ -116,26 +117,26 @@ function placeEmoji(emojiName, index) {
   var maxSideLength = Math.min(dashboard.clientHeight / 4, dashboard.clientWidth / 7);
   var topOfDashboard = document.getElementById(dashID).getBoundingClientRect().top;
 
-  console.log('trying to place index:' + index);
-
+  //console.log('trying to place index:' + index);
+  //console.log('Index: ' + index);
   switch(index) {
     case 0:
             document.getElementById(emojiName).parentNode.style.position = 'absolute';
             document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 1 + 'px';
             document.getElementById(emojiName).parentNode.style.left = maxSideLength * 3 + 'px';
-            console.log('casenum: ' + index + 'look at me im mr meebo: ' + document.getElementById(emojiName).parentNode.getBoundingClientRect().top);
+            //console.log('casenum: ' + index + 'look at me im mr meebo: ' + document.getElementById(emojiName).parentNode.getBoundingClientRect().top);
       break;
     case 1:
             document.getElementById(emojiName).parentNode.style.position = 'absolute';
             document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 1 + 'px';
             document.getElementById(emojiName).parentNode.style.left = maxSideLength * 4 + 'px';
-            console.log('casenum: ' + index + 'look at me im mr meebo: ' + document.getElementById(emojiName).parentNode.getBoundingClientRect().top);
+            //console.log('casenum: ' + index + 'look at me im mr meebo: ' + document.getElementById(emojiName).parentNode.getBoundingClientRect().top);
       break;
     case 2:
             document.getElementById(emojiName).parentNode.style.position = 'absolute';
             document.getElementById(emojiName).parentNode.style.top = topOfDashboard + maxSideLength * 1 + 'px';
             document.getElementById(emojiName).parentNode.style.left = maxSideLength * 2 + 'px';
-            console.log('casenum: ' + index + 'look at me im mr meebo: ' + document.getElementById(emojiName).parentNode.getBoundingClientRect().top);
+            //console.log('casenum: ' + index + 'look at me im mr meebo: ' + document.getElementById(emojiName).parentNode.getBoundingClientRect().top);
       break;
     case 3:
       break;
@@ -203,6 +204,8 @@ function resize(data) {
 
   // Loop through all elements passed from database
   var oldEmojis = activeEmojis;
+  //console.log('^ Data, activeEmojis v');
+  //console.log(activeEmojis);
   activeEmojis = [];
   for (var i = 0; i < numEmojis; ++i) {
     var element = document.getElementById(data.emojis[i].emojiName);
@@ -216,15 +219,15 @@ function resize(data) {
       // If they havent changed size then they don't need to be adjusted
       if (Math.round(size) !== element.width) {
         notify(data.emojis[i], size, element.size);
-        console.log("---------------------------------------------");
-        console.log('Changing size of: ' + data.emojis[i].emojiName);
-        console.log(size + ", " + element.width);
+        //console.log("---------------------------------------------");
+        //console.log('Changing size of: ' + data.emojis[i].emojiName);
+        //console.log(size + ", " + element.width);
 
         element.style.width = size + 'px';
         element.style.height = size + 'px';
 
-        console.log(size + ", " + element.width);
-        console.log("---------------------------------------------");
+        //console.log(size + ", " + element.width);
+        //console.log("---------------------------------------------");
 
         activeEmojis.push(element.getAttribute('id'));
       }
@@ -237,10 +240,15 @@ function resize(data) {
     }
   }
 
+  console.log('At end of resize: active emojis below');
+  console.log(activeEmojis);
+
   // clear old elements
   var oldLength = oldEmojis.length;
+  console.log('Deleting: ' + oldLength);
   for (var i = 0; i < oldLength; ++i) {
     var element = document.getElementById(oldEmojis[i]);
+    console.log('clearing: ' + oldEmojis[i]);
 
     // Need to remove image and div
     element.parentNode.parentNode.removeChild(element.parentNode);
@@ -254,12 +262,12 @@ function notify(emojiData, newSize, oldSize) {
 // Function to refresh data pulled from database
 // *** NO ERROR HANDLING CURRENTLY IMPLEMENTED
 function refresh() {
-  console.log("You're about to fuck up");
+  //console.log("You're about to fuck up");
   var data = JSON.parse(pullEmojiData());
 
   resize(data);
   reorder(data);
-  setTimeout(refresh, 1000);
+  setTimeout(refresh, 5000);
 };
 
 
@@ -278,7 +286,6 @@ function pullEmojiData() {
   } else {
     ++dummyCounter;
   }
-  console.log(dummyCounter);
   return dummyDataSet[dummyCounter];
 };
 
@@ -297,7 +304,7 @@ Functions and data for testing
 --------------------------------------------------------------------------------
 */
 var dummyCounter = 0;
-var dummyData = '{ "totalOccurrences": 200, ' + '"emojis": [{ "emojiName": "happy", "occurrences": 190 }, { "emojiName": "angry", "occurrences": 100 }, { "emojiName": "ahhh", "occurrences": 70 }]' + '}';
-var dummyData2 = '{ "totalOccurrences": 200, ' + '"emojis": [{ "emojiName": "happy", "occurrences": 195 }, { "emojiName": "angry", "occurrences": 100 }]' + '}';
+var dummyData = '{ "totalOccurrences": 360, ' + '"emojis": [{ "emojiName": "happy", "occurrences": 190 }, { "emojiName": "angry", "occurrences": 100 }, { "emojiName": "ahhh", "occurrences": 70 }]' + '}';
+var dummyData2 = '{ "totalOccurrences": 395, ' + '"emojis": [{ "emojiName": "happy", "occurrences": 195 }, { "emojiName": "angry", "occurrences": 100 }]' + '}';
 var dummyData3 = '{ "totalOccurrences": 200, ' + '"emojis": [{ "emojiName": "happy", "occurrences": 200 }]' + '}';
 var dummyDataSet = [dummyData, dummyData2, dummyData3];
