@@ -305,13 +305,14 @@ function notify(emojiData, newSize, oldSize) {
 
 // Function to refresh data pulled from database
 // *** NO ERROR HANDLING CURRENTLY IMPLEMENTED
-function refresh() {
+function refresh(jsonPackage) {
   //console.log("You're about to fuck up");
-  var data = JSON.parse(pullEmojiData());
-
+  //var data = JSON.parse(pullEmojiData());
+  var data = JSON.parse(jsonPackage);
+  
   resize(data);
   reorder(data);
-  setTimeout(refresh, 5000);
+  //setTimeout(refresh, 5000);
 };
 
 
@@ -325,12 +326,13 @@ function pullEmojiData() {
   // Access database and pull information
 
   // Return data
-  if (dummyCounter >= 2) {
-    dummyCounter = 0;
-  } else {
-    ++dummyCounter;
-  }
-  return dummyDataSet[dummyCounter];
+  // if (dummyCounter >= 2) {
+  //   dummyCounter = 0;
+  // } else {
+  //   ++dummyCounter;
+  // }
+  // return dummyDataSet[dummyCounter];
+
 };
 
 // *** NO ERROR HANDLING CURRENTLY IMPLEMENTED
