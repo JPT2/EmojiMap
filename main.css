@@ -9,6 +9,7 @@ body {
        background-color: #57E5FF;
        width: 100vw;
        box-shadow: 0vw 1vw 0.5vw #2C737F;
+       text-align: center;
 }
 
 .banner-content {
@@ -21,13 +22,19 @@ body {
 }
 
 .banner-content img {
-       height: 6vw;
-       width: 6vw;
-       margin: 0 auto;
-       float: left;
-       padding-left: 1vw;
-       padding-right: 1vw;
-       padding-bottom: 1vw;
+        height: 2.8vw;
+        width: 2.8vw;
+        margin: 0 auto;
+}
+
+.banner-content img[src = "pin.svg"] {
+        height: 6vw;
+        width: 6vw;
+        margin: 0 auto;
+        float: left;
+        padding-left: 1vw;
+        padding-right: 1vw;
+        padding-bottom: 1vw;
 }
 
 #emoji-dashboard {
@@ -37,7 +44,7 @@ body {
       left: 0;
       width: 100vw;
       background-color: #46B8CC;
-      height: calc(92.5vh - 8vw);
+      height: calc(95.5vh - 8vw);
 }
 
 #bottom-banner {
