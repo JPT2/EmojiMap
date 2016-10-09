@@ -22,7 +22,6 @@ Emoji Creation Functions
 // Create a div to contain elements related to a particular emoji
 // *** NO ERROR HANDLING CURRENTLY IMPLEMENTED
 function createEmojiDiv(emojiData) {
-  //console.log(emojiData);
   var emojiDiv = document.createElement('div');
   emojiDiv.setAttribute('class','emoji-container');
   emojiDiv.style.position = 'absolute';
@@ -39,7 +38,6 @@ function createEmojiDiv(emojiData) {
 // *** NO ERROR HANDLING CURRENTLY IMPLEMENTED
 function createEmojiImage(emojiData) {
   // Assume file path is img/emojiName
-  //console.log(emojiData);
   var img = document.createElement('img');
   img.setAttribute('id', emojiData.emojiName);
   img.setAttribute('src', 'emoji_resources/' + emojiData.emojiName + '.svg');
@@ -49,13 +47,13 @@ function createEmojiImage(emojiData) {
   var maxSideLength = Math.min(dashboard.clientHeight / 4, dashboard.clientWidth / 7);
 
   var size = (maxSideLength * emojiData.occurrences / totalOccurrences);
-  //console.log("size: " + size);
   img.style.height = size + "px";
   img.style.width = size + "px";
 
   return img;
 };
 
+// LEGACY CODE
 // Make the emoji dashboard with a banner at top (and bottom?)
 function createDashboard() {
   // Could maybe make a call to refresh?
@@ -70,12 +68,10 @@ function createDashboard() {
   // Populate dashboard with emoji divs (could maybe place them in a table later)
   var numEmojis = data.emojis.length;
   for (var i = 0; i < numEmojis; ++i) {
-    ////console.log(data.emojis[i].emojiName);
     dashboard.appendChild(createEmojiDiv(data.emojis[i]));
   }
 
   setTimeout(refresh, 5000);
-  //console.log(activeEmojis);
 };
 
 /*
@@ -89,11 +85,9 @@ Dashboard functions
 function reorder(data) {
   // Reorder emojis on screen and play a notification noise when emoji resized
   activeEmojis.sort(function(a,b) {
-    //console.log("sorting")
     var a1 = parseInt(document.getElementById(a).style.width.substring(0,  document.getElementById(a).style.width.length - 2));
     var b1 = parseInt(document.getElementById(b).style.width.substring(0, document.getElementById(b).style.width.length - 2));
-    //console.log('a1: ' + a1 + ', b1: ' + b1);
-    //console.log(a1 > b1 ? -1 : a1 < b1 ? 1 : 0)
+
     return a1 > b1 ? 1 : a1 < b1 ? -1 : 0;
   });
   activeEmojis.reverse();
@@ -102,9 +96,6 @@ function reorder(data) {
   var largest = parseInt(document.getElementById(activeEmojis[0]).style.width.substring(0,  document.getElementById(activeEmojis[0]).style.width.length - 2));
   console.log("largest: " + largest);
 
-  //console.log('ANTONIO ARRAY: ' + activeEmojis);
-  //console.log(data);
-  //console.log('ActiveEmojis: ' + activeEmojis);
   for (var i = 0; i < length; ++i) {
     placeEmoji(activeEmojis[i], i, largest);
   }
@@ -119,8 +110,6 @@ function placeEmoji(emojiName, index, largest) {
   var topOfDashboard = document.getElementById(dashID).getBoundingClientRect().top - 25;
   var leftSideOffset = Math.max(0, (dashboard.clientWidth - dashboard.clientHeight) / 7);
 
-  //console.log('trying to place index:' + index);
-  //console.log('Index: ' + index);
   console.log('LOOKAME: ratio =' + document.getElementById(emojiName).style.width.substring(0,  document.getElementById(activeEmojis[0]).style.width.length - 2) / largest);
 
   var width = (document.getElementById(emojiName).style.width.substring(0,  document.getElementById(emojiName).style.width.length - 2) / largest) * maxSideLength;
@@ -249,7 +238,6 @@ function placeEmoji(emojiName, index, largest) {
 
 function resize(data) {
   // Resize all elements and notify when changes occur
-  console.log(data);
   var numEmojis = data.emojis.length;
 
   var dashboard = document.getElementById(dashID);
@@ -258,8 +246,6 @@ function resize(data) {
 
   // Loop through all elements passed from database
   var oldEmojis = activeEmojis;
-  //console.log('^ Data, activeEmojis v');
-  //console.log(activeEmojis);
   activeEmojis = [];
   for (var i = 0; i < numEmojis; ++i) {
     var element = document.getElementById(data.emojis[i].emojiName);
@@ -273,15 +259,9 @@ function resize(data) {
       // If they havent changed size then they don't need to be adjusted
       if (Math.round(size) !== element.width) {
         notify(data.emojis[i], size, element.size);
-        //console.log("---------------------------------------------");
-        //console.log('Changing size of: ' + data.emojis[i].emojiName);
-        //console.log(size + ", " + element.width);
 
         element.style.width = size + 'px';
         element.style.height = size + 'px';
-
-        //console.log(size + ", " + element.width);
-        //console.log("---------------------------------------------");
 
         activeEmojis.push(element.getAttribute('id'));
       }
@@ -316,13 +296,10 @@ function notify(emojiData, newSize, oldSize) {
 // Function to refresh data pulled from database
 // *** NO ERROR HANDLING CURRENTLY IMPLEMENTED
 function refresh(jsonPackage) {
-  //console.log("You're about to fuck up");
-  //var data = JSON.parse(pullEmojiData());
   var data = JSON.parse(jsonPackage);
-  
+
   resize(data);
   reorder(data);
-  //setTimeout(refresh, 5000);
 };
 
 
@@ -342,7 +319,6 @@ function pullEmojiData() {
   //   ++dummyCounter;
   // }
   // return dummyDataSet[dummyCounter];
-
 };
 
 // *** NO ERROR HANDLING CURRENTLY IMPLEMENTED
@@ -352,7 +328,7 @@ function playSound(filename) {
 
 window.onload = function() { refresh(); };
 
-window.onresize = function(event) {}; //refresh(); };
+//window.onresize = function(event) { forceRefresh(); }; //refresh(); };
 
 /*
 --------------------------------------------------------------------------------

@@ -6,7 +6,6 @@ var deleteTime = null; // Not currently supported
 
 emojiDatabase.on('value', function (snapshot) {
   proccessEmojiData(snapshot.val());
-  //console.log(snapshot.val());
 });
 
 function proccessEmojiData(data) {
@@ -64,6 +63,15 @@ function packageData(updated) {
 
 function issueRefresh(jsonPackage) {
   refresh(jsonPackage);
+};
+
+function forceRefresh() {
+  var totalOccurrences = 0;
+  var totalLength = emojiTotals.length;
+  for (var i = 0; i < totalLength; ++i) {
+    totalOccurrences += emojiTotals[i];
+  }
+  return '{"totalOccurences": ' + totalOccurrences + ', "emojis": []}'
 };
 
 function parseEmojiNumber(num) {
